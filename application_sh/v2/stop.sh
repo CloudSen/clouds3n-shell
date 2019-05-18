@@ -2,6 +2,7 @@
 # Author: CloudS3n
 
 projectName='spy-optical-platform/spy-task'
+clear
 echo "==> Stopping ${projectName}..."
 if [[ ! -f "./${projectName##*/}-pid" ]]; then
     echo "==> no need to stop"
@@ -10,8 +11,8 @@ fi
 pidFileName="${projectName##*/}-pid"
 pid="$(cat ./${pidFileName})"
 if [[ -z $pid ]]; then
-        echo "==> no need to stop"
-        exit
+    echo "==> no need to stop"
+    exit
 fi
 echo "==> ${projectName} pid=$pid"
 $(kill -9 "$pid")
