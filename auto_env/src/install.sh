@@ -1,8 +1,6 @@
 #!/bin/bash
 # Author: CloudS3n
 
-source ./src/config.sh
-
 nginxFileName="nginx-1.15.0"
 pcreFileName="pcre-8.38"
 zlibFileName="zlib-1.2.11"
@@ -46,10 +44,6 @@ function install_nginx() {
     echo "[ SUCCESS ] Success to install nginx" >> ./logs/log
 }
 
-function install_java() {
-    config_java_env $jdkFileName
-}
-
 function summary() {
     echo "=================summary===================" >> ./logs/log
     nginx -v 2>> ./logs/log
@@ -62,6 +56,5 @@ function install_all() {
     install_zlib
     install_pcre
     install_nginx
-    #install_java
     summary
 }
