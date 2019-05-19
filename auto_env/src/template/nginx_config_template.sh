@@ -26,7 +26,7 @@ http {
         location / {
             root   /home/5s/web/spy-optical-platform/spy-management/webpage/build;
             index  index.html index.htm;
-            try_files $uri $uri/ /index.html =404;
+            try_files \$uri \$uri/ /index.html =404;
         }
 
         location /dataExchange {
