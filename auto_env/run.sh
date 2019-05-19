@@ -20,6 +20,7 @@ function run() {
     config_all
     clear_cache
     summary
+    killall tail
 }
 
 clear
