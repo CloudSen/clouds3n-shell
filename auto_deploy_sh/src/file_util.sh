@@ -50,9 +50,13 @@ function replace_files() {
     echo "==========================replace files============================" >> ./logs/log
     echo "> Starting replace [ ${projectName} ] files..." >> ./logs/log
     yes | cp ./deploy/"${projectName}"/service/* /home/5s/web/"${projectName}"/service/
-    yes | cp -r ./deploy/"${projectName}"/webpage/* /home/5s/web/"${projectName}"/webpage/
-    unzip -qo /home/5s/web/"${projectName}"/webpage/build.zip -d /home/5s/web/"${projectName}"/webpage/
-    rm -f /home/5s/web/"${projectName}"/webpage/build.zip
+    if [[ -d ./deploy/"${projectName}"/webpage/ ]]; then
+        yes | cp -r ./deploy/"${projectName}"/webpage/ /home/5s/web/"${projectName}"
+    fi
+    if [[ -f /home/5s/web/"${projectName}"/webpage/build.zip ]]; then
+        unzip -qo /home/5s/web/"${projectName}"/webpage/build.zip -d /home/5s/web/"${projectName}"/webpage/
+        rm -f /home/5s/web/"${projectName}"/webpage/build.zip
+    fi
 }
 
 function mv_files() {

@@ -34,6 +34,7 @@ function start_uninstall() {
         remove_systemd $projectName
         remove_files $projectName
     done
+    nginx -s reload
     echo "[ DONE ] Spend time $SECONDS s"
 }
 
