@@ -44,7 +44,7 @@ function install_jdk() {
     echo "==================install==================" >> ./logs/log
     echo "=> installing jdk via yum..." >> ./logs/log
     cd ./deploy/$jdkFileName/
-    yum --nogpgcheck localinstall "${jdkFileName}${rpmSuffix}"
+    yum --nogpgcheck localinstall "${jdkRpmName}${rpmSuffix}"
     cd ../..
     echo "[ SUCCESS ] Success to install jdk" >> ./logs/log
 }
