@@ -14,6 +14,12 @@ function uninstall_nginx() {
     rm -f /bin/nginx
 }
 
+function uninstall_yum_openjdk() {
+    echo "==================uninstall=================="
+    echo "> removing all openjdk via yum"
+    rpm -qa | grep openjdk | xargs yum -y remove
+}
+
 function clear_log() {
     echo "==================uninstall=================="
     echo "> clear log"
@@ -23,6 +29,7 @@ function clear_log() {
 function uninstall_all() {
     clear
     uninstall_nginx
+    uninstall_yum_openjdk
     clear_log
 }
 
