@@ -4,6 +4,7 @@
 source ./src/file_util.sh
 source ./src/install.sh
 source ./src/config_util.sh
+source ./src/system_info.sh
 
 function init() {
     echo "" > ./logs/log
@@ -18,6 +19,7 @@ function run() {
     install_all
     config_all
     clear_cache
+    summary
 }
 
 clear

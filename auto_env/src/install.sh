@@ -49,15 +49,6 @@ function install_jdk() {
     echo "[ SUCCESS ] Success to install jdk" >> ./logs/log
 }
 
-function summary() {
-    echo "=================summary===================" >> ./logs/log
-    cat /proc/version 2>> ./logs/log
-    nginx -v 2>> ./logs/log
-    java -version 2>> ./logs/log
-    #javac -version 2>> ./logs/log
-    echo "=================summary===================" >> ./logs/log
-}
-
 function install_all() {
     if [[ "${enableZlib}" == true ]]; then
         install_zlib
@@ -71,5 +62,4 @@ function install_all() {
     if [[ "${enableJDK}" == true ]]; then
         install_jdk
     fi
-    summary
 }
