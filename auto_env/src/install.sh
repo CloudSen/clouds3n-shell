@@ -4,7 +4,7 @@
 source ./config.sh
 
 function install_zlib() {
-    echo "====================================" >> ./logs/log
+    echo "==================install==================" >> ./logs/log
     echo "=> installing zlib..." >> ./logs/log
     echo "=> configuring zlib" >> ./logs/log
     cd ./deploy/$zlibFileName/
@@ -17,7 +17,7 @@ function install_zlib() {
 }
 
 function install_pcre() {
-    echo "====================================" >> ./logs/log
+    echo "==================install==================" >> ./logs/log
     echo "=> installing pcre..." >> ./logs/log
     echo "=> configuring pcre" >> ./logs/log
     cd ./deploy/$pcreFileName/
@@ -29,7 +29,7 @@ function install_pcre() {
 }
 
 function install_nginx() {
-    echo "====================================" >> ./logs/log
+    echo "==================install==================" >> ./logs/log
     echo "=> installing nginx..." >> ./logs/log
     echo "=> configuring nginx" >> ./logs/log
     cd ./deploy/$nginxFileName/
@@ -41,7 +41,7 @@ function install_nginx() {
 }
 
 function install_jdk() {
-    echo "====================================" >> ./logs/log
+    echo "==================install==================" >> ./logs/log
     echo "=> installing jdk via yum..." >> ./logs/log
     cd ./deploy/$jdkFileName/
     yum --nogpgcheck localinstall "${jdkFileName}${rpmSuffix}"

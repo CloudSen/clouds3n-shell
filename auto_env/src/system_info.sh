@@ -7,5 +7,4 @@ function summary() {
     nginx -v 2>> ./logs/log
     java -version 2>> ./logs/log
     #javac -version 2>> ./logs/log
-    echo "=================summary===================" >> ./logs/log
 }

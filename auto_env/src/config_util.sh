@@ -6,6 +6,7 @@ source ./config.sh
 function config_java_env() {
     local jdkName=$1
     local javaHome=/usr/local/java/$jdkName
+    echo "==================Config==================" >> ./logs/log
     echo "> Config openjdk..." >> ./logs/log
     echo "export JAVA_HOME=$javaHome" >> /etc/profile
     echo "export PATH=\$JAVA_HOME/bin:$PATH" >> /etc/profile
@@ -14,17 +15,20 @@ function config_java_env() {
 }
 
 function config_bashrc() {
+    echo "==================Config==================" >> ./logs/log
     echo "> Config bashrc..." >> ./logs/log
     source ./src/template/bashrc_template.sh >> /etc/bashrc
     source /etc/bashrc
 }
 
 function config_vim() {
+    echo "==================Config==================" >> ./logs/log
     echo "> Config vim..." >> ./logs/log
     source ./src/template/vimrc_template.sh >> /etc/vimrc
 }
 
 function config_nginx() {
+    echo "==================Config==================" >> ./logs/log
     echo "> Config nginx..." >> ./logs/log
     echo "> Create nginx.conf" >> ./logs/log
     source ./src/template/nginx_config_template.sh > /home/5s/nginx/conf/nginx.conf
