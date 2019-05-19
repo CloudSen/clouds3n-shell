@@ -1,48 +1,61 @@
 #!/bin/bash
 # Author: CloudS3n
 
-nginxFileName="nginx-1.15.0"
-pcreFileName="pcre-8.38"
-zlibFileName="zlib-1.2.11"
-jdkFileName="openjdk-8u242-b08"
-fileSuffix=".tar.gz"
+source ./config.sh
 
 function check_files() {
     echo "> checking files..." >> ./logs/log
-    if [[ ! -f "./deploy/${nginxFileName}${fileSuffix}" ]]; then
+    if [[ "${enableNginx}" == true ]] && [[ ! -f "./deploy/${nginxFileName}${gzSuffix}" ]]; then
         echo "[ ERR ] Nginx not found!"
         exit
     fi
-    if [[ ! -f "./deploy/${pcreFileName}${fileSuffix}" ]]; then
+    if [[ "${enablePcre}" == true ]] && [[ ! -f "./deploy/${pcreFileName}${gzSuffix}" ]]; then
         echo "[ ERR ] Pcre not found!"
         exit
     fi
-    if [[ ! -f "./deploy/${zlibFileName}${fileSuffix}" ]]; then
+    if [[ "${enableZlib}" == true ]] && [[ ! -f "./deploy/${zlibFileName}${gzSuffix}" ]]; then
         echo "[ ERR ] Zlib not found!"
         exit
     fi
-    #if [[ ! -f "./deploy/${jdkFileName}${fileSuffix}" ]]; then
-    #    echo "[ ERR ] OpenJDK not found!"
-    #    exit
-    #fi
+    if [[ "${enableJDK}" == true ]] && [[ ! -f "./deploy/${jdkFileName}${tarSuffix}" ]]; then
+        echo "[ ERR ] OpenJDK not found!"
+        exit
+    fi
 }
 
 function decompress() {
     check_files
     echo "> decompressing files..." >> ./logs/log
-    tar zxf ./deploy/${nginxFileName}${fileSuffix} -C ./deploy/ &
-    local tarNginxPid=$!
-    tar zxf ./deploy/${pcreFileName}${fileSuffix} -C ./deploy/ &
-    local tarPcrePid=$!
-    tar zxf ./deploy/${zlibFileName}${fileSuffix} -C ./deploy/ &
-    local tarZlibPid=$!
-    mkdir -p /usr/local/java/
-    #tar zxf ./deploy/${jdkFileName}${fileSuffix} -C /opt/java/ &
-    #local tarJdkPid=$!
-    wait $tarNginxPid
-    wait $tarPcrePid
-    wait $tarZlibPid
-    #wait $tarJdkPid
+    if [[ "${enableNginx}" == true ]]; then
+        tar zxf ./deploy/${nginxFileName}${gzSuffix} -C ./deploy/ &
+        local tarNginxPid=$!
+    fi
+    if [[ "${enablePcre}" == true ]]; then
+        tar zxf ./deploy/${pcreFileName}${gzSuffix} -C ./deploy/ &
+        local tarPcrePid=$!
+    fi
+    if [[ "${enableZlib}" == true ]]; then
+        tar zxf ./deploy/${zlibFileName}${gzSuffix} -C ./deploy/ &
+        local tarZlibPid=$!
+    fi
+    if [[ "${enableJDK}" == true ]]; then
+        mkdir /opt/java/
+        tar xf ./deploy/${jdkFileName}${gzSuffix} -C /opt/java/ &
+        local tarJdkPid=$!
+    fi
+
+    if [[ "${enableNginx}" == true ]]; then
+        wait $tarNginxPid
+    fi
+    if [[ "${enablePcre}" == true ]]; then
+        wait $tarPcrePid
+    fi
+    if [[ "${enableZlib}" == true ]]; then
+        wait $tarZlibPid
+    fi
+    if [[ "${enableJDK}" == true ]]; then
+        wait $tarJdkPid
+    fi
 }
 
 function clear_cache() {
@@ -50,4 +63,5 @@ function clear_cache() {
     rm -rf ./deploy/${nginxFileName}
     rm -rf ./deploy/${pcreFileName}
     rm -rf ./deploy/${zlibFileName}
+    rm -rf ./deploy/${jdkFileName}
 }

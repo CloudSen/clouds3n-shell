@@ -1,11 +1,7 @@
 #!/bin/bash
 # Author: CloudS3n
 
-nginxFileName="nginx-1.15.0"
-pcreFileName="pcre-8.38"
-zlibFileName="zlib-1.2.11"
-jdkFileName="openjdk-8u242-b08"
-fileSuffix=".tar.gz"
+source ./config.sh
 
 function install_zlib() {
     echo "====================================" >> ./logs/log
@@ -44,8 +40,18 @@ function install_nginx() {
     echo "[ SUCCESS ] Success to install nginx" >> ./logs/log
 }
 
+function install_jdk() {
+    echo "====================================" >> ./logs/log
+    echo "=> installing jdk via yum..." >> ./logs/log
+    cd ./deploy/$jdkFileName/
+    yum --nogpgcheck localinstall "${jdkFileName}${rpmSuffix}"
+    cd ../..
+    echo "[ SUCCESS ] Success to install jdk" >> ./logs/log
+}
+
 function summary() {
     echo "=================summary===================" >> ./logs/log
+    cat /proc/version 2>> ./logs/log
     nginx -v 2>> ./logs/log
     java -version 2>> ./logs/log
     #javac -version 2>> ./logs/log
@@ -53,8 +59,17 @@ function summary() {
 }
 
 function install_all() {
-    install_zlib
-    install_pcre
-    install_nginx
+    if [[ "${enableZlib}" == true ]]; then
+        install_zlib
+    fi
+    if [[ "${enablePcre}" == true ]]; then
+        install_pcre
+    fi
+    if [[ "${enableNginx}" == true ]]; then
+        install_nginx
+    fi
+    if [[ "${enableJDK}" == true ]]; then
+        install_jdk
+    fi
     summary
 }

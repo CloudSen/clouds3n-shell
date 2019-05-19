@@ -3,7 +3,7 @@
 
 source ./src/file_util.sh
 source ./src/install.sh
-source ./src/config.sh
+source ./src/config_util.sh
 
 function init() {
     echo "" > ./logs/log
@@ -13,7 +13,7 @@ function init() {
 
 function run() {
     init
-    echo "> Starting install env..." >> ./logs/log
+    echo "> Starting intial env..." >> ./logs/log
     decompress
     install_all
     config_all
