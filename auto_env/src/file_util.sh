@@ -17,7 +17,7 @@ function check_files() {
         echo "[ ERR ] Zlib not found!"
         exit
     fi
-    if [[ "${enableJDK}" == true ]] && [[ ! -f "./deploy/${jdkFileName}${tarSuffix}" ]]; then
+    if [[ "${enableJDK}" == true ]] && [[ ! -f "./deploy/${jdkFileName}${gzSuffix}" ]]; then
         echo "[ ERR ] OpenJDK not found!"
         exit
     fi
