@@ -2,13 +2,17 @@
 # Author CloudS3n
 
 servicePath="/etc/systemd/system/"
-projectPath="/home/5s/web"
+projectPath="/home/5s/web/"
 
-function uninstall_service() {
+function remove_systemd() {
     local projectName=$1
-    echo "> Stopping ${projectName##*/}.service"
-    systemctl stop ${projectName##*/}
-    systemctl disable ${projectName##*/}
+    if [[ -f "${servicePath}${projectName##*/}.service" ]]; then
+        echo "> Removing ${servicePath}${projectName##*/}.service"
+        systemctl stop ${projectName##*/}
+        systemctl disable ${projectName##*/}
+        rm -f ${servicePath}${projectName##*/}.service
+        systemctl daemon-reload
+    fi
 }
 
 function remove_files() {
@@ -16,10 +20,6 @@ function remove_files() {
     if [[ -d "${projectPath}${projectName}" ]]; then
         echo "> Removing ${projectPath}${projectName}"
         rm -rf ${projectPath}${projectName}/
-    fi
-    if [[ -f "${servicePath}${projectName##*/}".service ]]; then
-        echo "> Removing ${servicePath}${projectName##*/}.service"
-        rm -rf ${servicePath}${projectName##*/}.service
     fi
 }
 
@@ -29,9 +29,9 @@ function start_uninstall() {
         echo "[ DONE ] No need to uninstall project"
         exit
     fi
-    for projectName in "${uninstallProjectList[@]}": DONE
+    for projectName in "${uninstallProjectList[@]}"; do
         echo "> Starting uninstall ${projectName}"
-        uninstall_service $projectName
+        remove_systemd $projectName
         remove_files $projectName
     done
     echo "[ DONE ] Spend time $SECONDS s"

@@ -9,7 +9,7 @@ function start() {
     local projectList=($(cat ./deploy/project_list))
     source ./src/prepare_files.sh
     source ./src/project_setup.sh
-    if [[ #projectList[@] == 0 ]]; then
+    if [[ ${#projectList[@]} == 0 ]]; then
         echo "[ ERR ] Project list is empty"
         exit
     else

@@ -7,18 +7,22 @@ function check_files() {
     echo "> checking files..." >> ./logs/log
     if [[ "${enableNginx}" == true ]] && [[ ! -f "./deploy/${nginxFileName}${gzSuffix}" ]]; then
         echo "[ ERR ] Nginx not found!"
+        killall tail
         exit
     fi
     if [[ "${enablePcre}" == true ]] && [[ ! -f "./deploy/${pcreFileName}${gzSuffix}" ]]; then
         echo "[ ERR ] Pcre not found!"
+        killall tail
         exit
     fi
     if [[ "${enableZlib}" == true ]] && [[ ! -f "./deploy/${zlibFileName}${gzSuffix}" ]]; then
         echo "[ ERR ] Zlib not found!"
+        killall tail
         exit
     fi
     if [[ "${enableJDK}" == true ]] && [[ ! -f "./deploy/${jdkFileName}${gzSuffix}" ]]; then
         echo "[ ERR ] OpenJDK not found!"
+        killall tail
         exit
     fi
 }

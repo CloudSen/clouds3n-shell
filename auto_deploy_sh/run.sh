@@ -1,36 +1,30 @@
 #!/bin/bash
 # Author CloudS3n
 
-function chmod_all() {
-    chmod +x ./src/*.sh
-}
+source ./src/file_util.sh
+source ./src/config_util.sh
+source ./src/project_info.sh
 
 function start() {
-    local projectList=($(cat ./deploy/project_list))
-    source ./src/prepare_files.sh
-    source ./src/project_setup.sh
-    if [[ #projectList[@] == 0 ]]; then
-        echo "[ ERR ] Project list is empty"
-        exit
-    else
-        echo "> Success to read project list"
-    fi
+    echo "==================start deploy====================" >> ./logs/log
+    local projectList=($(cat ./project_list))
     for projectName in "${projectList[@]}"; do
-        prepare_start $projectName
-        add_systemd $projectName "/home/5s/web/${projectName}/service/${projectName##*/}.jar"
-        set_auto_startup $projectName
+        mv_files $projectName
+        config_project $projectName
     done
-    for projectName in "${projectList[@]}"; do
-        echo "================================="
-        systemctl status ${projectName##*/}
-    done
-    echo "[ DONE ] Spend time $SECONDS s"
+    echo "[ DONE ] Spend time $SECONDS s" >> ./logs/log
 }
 
 function run() {
+    echo "" > ./logs/log
+    tail -f ./logs/log &
+    check_project_list
     chmod_all
     clear
     start
+    chmod_all
+    killall tail
+    nginx -s reload
 }
 
 run

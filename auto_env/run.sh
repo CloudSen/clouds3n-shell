@@ -10,6 +10,8 @@ function init() {
     echo "" > ./logs/log
     tail -f ./logs/log &
     chmod +x ./src/*.sh
+    systemctl stop firewalld
+    systemctl disable firewalld
 }
 
 function run() {
