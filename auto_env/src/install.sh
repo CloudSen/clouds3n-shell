@@ -43,7 +43,7 @@ function install_nginx() {
 function install_jdk() {
     echo "==================install==================" >> ./logs/log
     echo "=> installing jdk via yum..." >> ./logs/log
-    cd ./deploy/$jdkFileName/
+    cd ./opt/java/$jdkFileName/
     yum --nogpgcheck localinstall "${jdkRpmName}${rpmSuffix}"
     cd ../..
     echo "[ SUCCESS ] Success to install jdk" >> ./logs/log
