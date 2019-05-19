@@ -21,6 +21,7 @@ function clear_log() {
 }
 
 function uninstall_all() {
+    clear
     uninstall_nginx
     clear_log
 }
