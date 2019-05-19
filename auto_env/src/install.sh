@@ -45,7 +45,7 @@ function install_jdk() {
     echo "=> installing jdk via yum..." >> ./logs/log
     cd ./opt/java/$jdkFileName/
     yum --nogpgcheck localinstall "${jdkRpmName}${rpmSuffix}"
-    cd ../..
+    cd /home/5s/scripts/auto_env
     echo "[ SUCCESS ] Success to install jdk" >> ./logs/log
 }
 
