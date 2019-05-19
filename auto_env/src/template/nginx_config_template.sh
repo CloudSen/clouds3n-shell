@@ -29,8 +29,12 @@ http {
             try_files $uri $uri/ /index.html =404;
         }
 
-        location /jxjh {
+        location /dataExchange {
             proxy_pass http://localhost:8800/;
+        }
+
+        location /rwyb {
+            proxy_pass http://localhost:8802/;
         }
 
         error_page   500 502 503 504  /50x.html;
