@@ -25,6 +25,7 @@ function check_files() {
 
 function decompress() {
     check_files
+    echo "==================decompressing==================" >> ./logs/log
     echo "> decompressing files..." >> ./logs/log
     if [[ "${enableNginx}" == true ]]; then
         tar zxf ./deploy/${nginxFileName}${gzSuffix} -C ./deploy/ &
@@ -59,6 +60,7 @@ function decompress() {
 }
 
 function clear_cache() {
+    echo "==================clear==================" >> ./logs/log
     echo "> Clear cache..." >> ./logs/log
     rm -rf ./deploy/${nginxFileName}
     rm -rf ./deploy/${pcreFileName}
