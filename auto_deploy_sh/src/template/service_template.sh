@@ -13,7 +13,6 @@ User=root
 WorkingDirectory=/home/5s/web/${projectName}/service/
 ExecStart=/usr/bin/java -jar ${projectName##*/}.jar
 ExecStop=/home/5s/web/${projectName}/service/stop.sh
-ExecStop=stop.sh
 SuccessExitStatus=143
 
 [Install]
