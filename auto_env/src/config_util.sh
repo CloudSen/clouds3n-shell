@@ -4,8 +4,7 @@
 source ./config.sh
 
 function config_java_env() {
-    local jdkName=$1
-    local javaHome=/opt/java/$jdkName
+    local javaHome=/opt/java/$jdkFileName
     echo "---" >> ./logs/log
     echo "> Config jdk env..." >> ./logs/log
     cp /etc/profile /etc/profile.bak
