@@ -6,10 +6,16 @@ source ./src/install.sh
 source ./src/config_util.sh
 source ./src/system_info.sh
 
+ROOT_UID=0
+
 function init() {
     echo "" > ./logs/log
     tail -f ./logs/log &
     chmod +x ./src/*.sh
+    if [[ "$UID" -ne "$ROOT_UID"  ]]; then
+        echo "[ ERR ] Must be root to run this script!"
+        exit 87
+    fi
     systemctl stop firewalld
     systemctl disable firewalld
 }

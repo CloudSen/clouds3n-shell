@@ -5,18 +5,20 @@ source ./config.sh
 
 function config_java_env() {
     local jdkName=$1
-    local javaHome=/usr/local/java/$jdkName
+    local javaHome=/opt/java/$jdkName
     echo "==================Config==================" >> ./logs/log
     echo "> Config openjdk..." >> ./logs/log
-    echo "export JAVA_HOME=$javaHome" >> /etc/profile
-    echo "export PATH=\$JAVA_HOME/bin:$PATH" >> /etc/profile
-    echo "export CLASSPATH=.:\$JAVA_HOME/jre/lib:\$JAVA_HOME/lib:\$JAVA_HOME/lib/tools.jar" >> /etc/profile
+    cp /etc/profile /etc/profile.bak
+    source ./src/template/profile_template.sh $javaHome >> /etc/profile
     source /etc/profile
+    # for systemd service
+    alternatives --install /usr/bin/java java ${javaHome}/bin/java 3
 }
 
 function config_bashrc() {
     echo "==================Config==================" >> ./logs/log
     echo "> Config bashrc..." >> ./logs/log
+    cp /etc/bashrc /etc/bashrc.bak
     source ./src/template/bashrc_template.sh >> /etc/bashrc
     source /etc/bashrc
 }
@@ -24,6 +26,7 @@ function config_bashrc() {
 function config_vim() {
     echo "==================Config==================" >> ./logs/log
     echo "> Config vim..." >> ./logs/log
+    cp /etc/vimrc /etc/vimrc.bak
     source ./src/template/vimrc_template.sh >> /etc/vimrc
 }
 
@@ -31,6 +34,7 @@ function config_nginx() {
     echo "==================Config==================" >> ./logs/log
     echo "> Config nginx..." >> ./logs/log
     echo "> Create nginx.conf" >> ./logs/log
+    cp /home/5s/nginx/conf/nginx.conf /home/5s/nginx/conf/nginx.conf.bak
     source ./src/template/nginx_config_template.sh > /home/5s/nginx/conf/nginx.conf
     echo "> Create nginx.service" >> ./logs/log
     source ./src/template/nginx_service_template.sh > /etc/systemd/system/nginx.service
@@ -41,8 +45,12 @@ function config_nginx() {
 }
 
 function config_all() {
-    config_bashrc
-    config_vim
+    if [[ "${enableBash}" == true ]]; then
+        config_bashrc
+    fi
+    if [[ "${enableVim}" == true ]]; then
+        config_vim
+    fi
     if [[ "${enableNginx}" == true ]]; then
         config_nginx
     fi

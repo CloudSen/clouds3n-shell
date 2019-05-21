@@ -1,5 +1,6 @@
 #!/bin/bash
 # Author: CloudS3n
+# Warn: Nginx&PCRE&ZLIB only support compile install now !
 
 # file name
 nginxFileName="nginx-1.15.0"
@@ -15,7 +16,15 @@ gzSuffix=".tar.gz"
 rpmSuffix=".rpm"
 
 # enable switch
+enableVim=true
+enableBash=true
 enableNginx=true
 enablePcre=true
 enableZlib=true
-enableJDK=false
+enableJDK=true
+
+# install switch
+isRpmNginx=false
+isRpmPcre=false
+isRpmZlib=false
+isRpmJDK=false
