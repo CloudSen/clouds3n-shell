@@ -30,6 +30,7 @@ function run() {
     clear_cache
     summary
     killall tail
+    echo "[ DONE ] Spend time $SECONDS s" >> ./logs/log
 }
 
 clear

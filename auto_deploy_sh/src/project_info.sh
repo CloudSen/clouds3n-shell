@@ -10,5 +10,7 @@ function project_summary() {
         else
             echo "[ SUCCESS ] ${priject} already start up ! pid=$(cat "/home/5s/web/${projectName}/service/${projectName##*/}-pid")" >> ./logs/log
         fi
+        echo "---" >> ./logs/log
+        ifconfig >> ./logs/log
     done
 }
