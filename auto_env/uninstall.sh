@@ -1,6 +1,8 @@
 #!/bin/bash
 # Author: CloudS3n
 
+source ./config.sh
+
 function uninstall_nginx() {
     echo "---"
     if [[ -f /etc/systemd/system/nginx.service ]]; then

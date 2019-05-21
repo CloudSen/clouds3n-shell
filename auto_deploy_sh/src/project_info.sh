@@ -3,6 +3,8 @@
 
 function project_summary() {
     local projectList=($(cat ./project_list))
+    systemctl status spy-*
+    sleep 5
     for projectName in "${projectList[@]}"; do
         echo "====================project summary=======================" >> ./logs/log
         if [[ ! -f "/home/5s/web/${projectName}/service/${projectName##*/}-pid" ]]; then
