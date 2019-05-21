@@ -6,8 +6,8 @@ source ./config.sh
 function config_java_env() {
     local jdkName=$1
     local javaHome=/opt/java/$jdkName
-    echo "==================Config==================" >> ./logs/log
-    echo "> Config openjdk..." >> ./logs/log
+    echo "---" >> ./logs/log
+    echo "> Config jdk env..." >> ./logs/log
     cp /etc/profile /etc/profile.bak
     source ./src/template/profile_template.sh $javaHome >> /etc/profile
     source /etc/profile
@@ -16,7 +16,7 @@ function config_java_env() {
 }
 
 function config_bashrc() {
-    echo "==================Config==================" >> ./logs/log
+    echo "---" >> ./logs/log
     echo "> Config bashrc..." >> ./logs/log
     cp /etc/bashrc /etc/bashrc.bak
     source ./src/template/bashrc_template.sh >> /etc/bashrc
@@ -24,14 +24,14 @@ function config_bashrc() {
 }
 
 function config_vim() {
-    echo "==================Config==================" >> ./logs/log
+    echo "---" >> ./logs/log
     echo "> Config vim..." >> ./logs/log
     cp /etc/vimrc /etc/vimrc.bak
     source ./src/template/vimrc_template.sh >> /etc/vimrc
 }
 
 function config_nginx() {
-    echo "==================Config==================" >> ./logs/log
+    echo "---" >> ./logs/log
     echo "> Config nginx..." >> ./logs/log
     echo "> Create nginx.conf" >> ./logs/log
     cp /home/5s/nginx/conf/nginx.conf /home/5s/nginx/conf/nginx.conf.bak
@@ -45,6 +45,7 @@ function config_nginx() {
 }
 
 function config_all() {
+    echo "==================Config-start==================" >> ./logs/log
     if [[ "${enableBash}" == true ]]; then
         config_bashrc
     fi
@@ -57,4 +58,5 @@ function config_all() {
     if [[ "${enableJDK}" == true ]]; then
         config_java_env
     fi
+    echo "==================Config-end====================" >> ./logs/log
 }
