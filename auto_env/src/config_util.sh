@@ -54,4 +54,7 @@ function config_all() {
     if [[ "${enableNginx}" == true ]]; then
         config_nginx
     fi
+    if [[ "${enableJDK}" == true ]]; then
+        config_java_env
+    fi
 }
