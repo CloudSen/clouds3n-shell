@@ -33,6 +33,7 @@ function uninstall_openjdk() {
     else
         echo "> no need to remove compiled jdk files"
     fi
+    alternatives --remove java /opt/java/$jdkFileName/bin/java
 }
 
 function resetEvnFile() {
