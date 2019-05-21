@@ -23,6 +23,7 @@ function run() {
     clear
     start
     chmod_all
+    project_summary
     killall tail
     nginx -s reload
 }

@@ -6,11 +6,11 @@ function project_summary() {
     for projectName in "${projectList[@]}"; do
         echo "====================project summary=======================" >> ./logs/log
         if [[ ! -f "/home/5s/web/${projectName}/service/${projectName##*/}-pid" ]]; then
-            echo "[ FAILED ] ${priject} failed to start up !" >> ./logs/log
+            echo "[ FAILED ] ${projectName} failed to start up !" >> ./logs/log
         else
-            echo "[ SUCCESS ] ${priject} already start up ! pid=$(cat "/home/5s/web/${projectName}/service/${projectName##*/}-pid")" >> ./logs/log
+            echo "[ SUCCESS ] ${projectName} already start up ! pid=$(cat "/home/5s/web/${projectName}/service/${projectName##*/}-pid")" >> ./logs/log
         fi
-        echo "---" >> ./logs/log
-        ifconfig >> ./logs/log
     done
+    echo "---" >> ./logs/log
+    ifconfig >> ./logs/log
 }
