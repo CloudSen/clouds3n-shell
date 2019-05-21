@@ -34,7 +34,7 @@ http {
         }
 
         location /rwyb {
-            proxy_pass http://localhost:8802/;
+            proxy_pass http://localhost:8801/;
         }
 
         error_page   500 502 503 504  /50x.html;
