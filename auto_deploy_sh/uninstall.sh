@@ -27,6 +27,7 @@ function start_uninstall() {
     local uninstallProjectList=("$@")
     if [[ ${uninstallProjectList[@]} == 0 ]]; then
         echo "[ DONE ] No need to uninstall project"
+        killall tail
         exit
     fi
     for projectName in "${uninstallProjectList[@]}"; do

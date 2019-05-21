@@ -14,6 +14,7 @@ function init() {
     chmod +x ./src/*.sh
     if [[ "$UID" -ne "$ROOT_UID"  ]]; then
         echo "[ ERR ] Must be root to run this script!"
+        killall tail
         exit 87
     fi
     systemctl stop firewalld

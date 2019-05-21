@@ -8,6 +8,7 @@ function install_zlib() {
     echo "> compile install zlib..." >> ./logs/log
     if [[ "${isRpmZlib}" == true ]]; then
         echo "[ ERR ] ZLIB only support compile install now !" >> ./logs/log
+        killall tail
         exit
     fi
     cd ./deploy/$zlibFileName/
@@ -24,6 +25,7 @@ function install_pcre() {
     echo "> compile install pcre..." >> ./logs/log
     if [[ "${isRpmPcre}" == true ]]; then
         echo "[ ERR ] PCRE only support compile install now !" >> ./logs/log
+        killall tail
         exit
     fi
     cd ./deploy/$pcreFileName/
@@ -39,6 +41,7 @@ function install_nginx() {
     echo "> compile install nginx..." >> ./logs/log
     if [[ "${isRpmNginx}" == true ]]; then
         echo "[ ERR ] Nginx only support compile install now !" >> ./logs/log
+        killall tail
         exit
     fi
     cd ./deploy/$nginxFileName/
@@ -58,12 +61,6 @@ function install_jdk() {
         rpm -qa | grep openjdk | xargs yum -y remove
     else
         echo "> no need to remove rpm openjdk" >> ./logs/log
-    fi
-    if [[ -d /opt/java ]]; then
-        echo "> removing compiled jdk files" >> ./logs/log
-        rm -rf /opt/java/
-    else
-        echo "> no need to remove compiled jdk files" >> ./logs/log
     fi
     cd /opt/java/$jdkFileName/
     if [[ "${isRpmJDK}" == true ]]; then

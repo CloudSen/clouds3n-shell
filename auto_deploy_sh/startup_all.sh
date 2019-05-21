@@ -5,6 +5,7 @@ function startup_all() {
     local pathList=($(find /home/5s/web/ -name "run.sh"))
     if [[ ${#pathList[@]} == 0 ]]; then
         echo "> no need to start project"
+        killall tail
         exit
     fi  
     for pathName in "${pathList[@]}"; do

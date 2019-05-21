@@ -45,6 +45,9 @@ function decompress() {
         local tarZlibPid=$!
     fi
     if [[ "${enableJDK}" == true ]]; then
+        if [[ -d /opt/java/ ]]; then
+            rm -rf /opt/java/
+        fi
         mkdir /opt/java/
         tar zxf ./deploy/${jdkFileName}${gzSuffix} -C /opt/java/ &
         local tarJdkPid=$!
