@@ -7,7 +7,7 @@ function install_zlib() {
     echo "---" >> ./logs/log
     echo "> compile install zlib..." >> ./logs/log
     if [[ "${isRpmZlib}" == true ]]; then
-        echo "[ ERR ] ZLIB only support compile install now !"
+        echo "[ ERR ] ZLIB only support compile install now !" >> ./logs/log
         exit
     fi
     cd ./deploy/$zlibFileName/
@@ -23,7 +23,7 @@ function install_pcre() {
     echo "---" >> ./logs/log
     echo "> compile install pcre..." >> ./logs/log
     if [[ "${isRpmPcre}" == true ]]; then
-        echo "[ ERR ] PCRE only support compile install now !"
+        echo "[ ERR ] PCRE only support compile install now !" >> ./logs/log
         exit
     fi
     cd ./deploy/$pcreFileName/
@@ -38,7 +38,7 @@ function install_nginx() {
     echo "---" >> ./logs/log
     echo "> compile install nginx..." >> ./logs/log
     if [[ "${isRpmNginx}" == true ]]; then
-        echo "[ ERR ] Nginx only support compile install now !"
+        echo "[ ERR ] Nginx only support compile install now !" >> ./logs/log
         exit
     fi
     cd ./deploy/$nginxFileName/
@@ -51,15 +51,27 @@ function install_nginx() {
 
 function install_jdk() {
     echo "---" >> ./logs/log
-    echo "> uninstalling all jdk"
-    rpm -qa | grep openjdk | xargs yum -y remove
+    echo "> uninstalling all jdk" >> ./logs/log
+    local jdkArray=($(rpm -qa | grep openjdk))
+    if [[ "${#jdkArray[@]}" > 0  ]]; then
+        echo "> remoing all ${#jdkArray[@]} exists openjdk via yum" >> ./logs/log
+        rpm -qa | grep openjdk | xargs yum -y remove
+    else
+        echo "> no need to remove rpm openjdk" >> ./logs/log
+    fi
+    if [[ -d /opt/java ]]; then
+        echo "> removing compiled jdk files" >> ./logs/log
+        rm -rf /opt/java/
+    else
+        echo "> no need to remove compiled jdk files" >> ./logs/log
+    fi
     cd /opt/java/$jdkFileName/
     if [[ "${isRpmJDK}" == true ]]; then
-        echo "> installing jdk via yum..." >> ./logs/log
+        echo "> installing jdk via yum..." >> /home/5s/scripts/auto_env/logs/log
         yum --nogpgcheck -y localinstall "${jdkRpmHeadName}${rpmSuffix}"
         yum --nogpgcheck -y localinstall "${jdkRpmName}${rpmSuffix}"
     else
-        echo "> compile install jdk..." >> ./logs/log
+        echo "> compile install jdk..." >> /home/5s/scripts/auto_env/logs/log
     fi
     cd /home/5s/scripts/auto_env
     echo "[ SUCCESS ] Success to install jdk" >> ./logs/log
