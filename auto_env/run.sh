@@ -31,6 +31,7 @@ function run() {
     summary
     killall tail
     echo "[ DONE ] Spend time $SECONDS s" >> ./logs/log
+    exit
 }
 
 clear

@@ -9,7 +9,6 @@ function config_java_env() {
     echo "> Config jdk env..." >> ./logs/log
     cp /etc/profile /etc/profile.bak
     source ./src/template/profile_template.sh $javaHome >> /etc/profile
-    source /etc/profile
     # for systemd service
     alternatives --install /usr/bin/java java ${javaHome}/bin/java 3
 }
@@ -19,7 +18,6 @@ function config_bashrc() {
     echo "> Config bashrc..." >> ./logs/log
     cp /etc/bashrc /etc/bashrc.bak
     source ./src/template/bashrc_template.sh >> /etc/bashrc
-    source /etc/bashrc
 }
 
 function config_vim() {
@@ -43,6 +41,11 @@ function config_nginx() {
     systemctl start nginx
 }
 
+function refresh_config() {
+    source /etc/profile
+    source /etc/bashrc
+}
+
 function config_all() {
     echo "==================Config-start==================" >> ./logs/log
     if [[ "${enableBash}" == true ]]; then
@@ -57,5 +60,6 @@ function config_all() {
     if [[ "${enableJDK}" == true ]]; then
         config_java_env
     fi
+    refresh_config
     echo "==================Config-end====================" >> ./logs/log
 }
