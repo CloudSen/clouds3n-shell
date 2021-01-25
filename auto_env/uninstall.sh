@@ -12,7 +12,7 @@ function uninstall_nginx() {
         rm -f /etc/systemd/system/nginx.service
         systemctl daemon-reload
         echo "> removing nginx folder"
-        rm -rf /home/5s/nginx/
+        rm -rf ${nginxInstallPath}
         echo "> removing nginx executor"
         rm -f /bin/nginx
     else

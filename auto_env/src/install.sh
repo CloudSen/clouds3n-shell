@@ -45,7 +45,7 @@ function install_nginx() {
         exit
     fi
     cd ./deploy/$nginxFileName/
-    ./configure --prefix=/home/5s/nginx --sbin-path=/usr/bin/nginx
+    ./configure --prefix=$nginxInstallPath --sbin-path=/usr/bin/nginx
     echo "> make install nginx" >> ../../logs/log
     make && make install
     cd ../..
@@ -64,13 +64,14 @@ function install_jdk() {
     fi
     cd /opt/java/$jdkFileName/
     if [[ "${isRpmJDK}" == true ]]; then
-        echo "> installing jdk via yum..." >> /home/5s/scripts/auto_env/logs/log
+        echo "> installing jdk via yum..." >> ${shellDir}/logs/log
+        yum --nogpgcheck -y localinstall "${copyJdkConfigsName}${rpmSuffix}"
         yum --nogpgcheck -y localinstall "${jdkRpmHeadName}${rpmSuffix}"
         yum --nogpgcheck -y localinstall "${jdkRpmName}${rpmSuffix}"
     else
-        echo "> compile install jdk..." >> /home/5s/scripts/auto_env/logs/log
+        echo "> compile install jdk..." >> ${shellDir}/logs/log
     fi
-    cd /home/5s/scripts/auto_env
+    cd $shellDir
     echo "[ SUCCESS ] Success to install jdk" >> ./logs/log
 }
 

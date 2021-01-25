@@ -2,15 +2,26 @@
 # Author: CloudS3n
 # Warn: Nginx&PCRE&ZLIB only support compile install now !
 
-# file name
+# root user id
+ROOT_UID=0
+
+# shell dir
+shellDir="$(pwd)"
+
+# files name
 nginxFileName="nginx-1.15.0"
 pcreFileName="pcre-8.38"
 zlibFileName="zlib-1.2.11"
 jdkFileName="openjdk-8u242"
-jdkRpmHeadName="java-1.8.0-openjdk-headless-1.8.0.242.b08-1.el7.aarch64"
-jdkRpmName="java-1.8.0-openjdk-1.8.0.242.b08-1.el7.aarch64"
+copyJdkConfigsName="copy-jdk-configs-3.3-10.el7_5.noarch"
+jdkRpmHeadName="java-1.8.0-openjdk-headless-1.8.0.242.b08-1.el7.x86_64"
+jdkRpmName="java-1.8.0-openjdk-1.8.0.242.b08-1.el7.x86_64"
 
-# file suffix
+# install path
+nginxInstallPath="/home/app/nginx/"
+
+
+# files suffix
 tarSuffix=".tar"
 gzSuffix=".tar.gz"
 rpmSuffix=".rpm"
@@ -23,8 +34,8 @@ enablePcre=true
 enableZlib=true
 enableJDK=true
 
-# install switch
+# installation type switch
 isRpmNginx=false
 isRpmPcre=false
 isRpmZlib=false
-isRpmJDK=false
+isRpmJDK=true

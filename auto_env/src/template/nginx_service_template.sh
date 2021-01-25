@@ -1,6 +1,8 @@
 #!/bin/bash
 # Author: CloudS3n
 
+source ./config.sh
+
 cat << EOF
 [Unit]
 Description=The NGINX Server
@@ -8,7 +10,7 @@ After=syslog.target network.target remote-fs.target nss-lookup.target
 
 [Service]
 Type=forking
-PIDFile=/home/5s/nginx/nginx.pid
+PIDFile=${nginxInstallPath}nginx.pid
 ExecStartPre=/bin/nginx -t
 ExecStart=/bin/nginx
 ExecReload=/bin/nginx -s reload

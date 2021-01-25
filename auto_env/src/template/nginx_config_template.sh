@@ -1,12 +1,14 @@
 #!/bin/bash
 # Author: CloudS3n
 
+source ./config.sh
+
 cat << EOF
 user  root;
 worker_processes  1;
 
-error_log  /home/5s/nginx/logs/error.log;
-pid        /home/5s/nginx/nginx.pid;
+error_log  ${nginxInstallPath}logs/error.log;
+pid        ${nginxInstallPath}nginx.pid;
 
 events {
     worker_connections  1024;

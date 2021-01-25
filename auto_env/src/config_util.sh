@@ -31,8 +31,8 @@ function config_nginx() {
     echo "---" >> ./logs/log
     echo "> Config nginx..." >> ./logs/log
     echo "> Create nginx.conf" >> ./logs/log
-    cp /home/5s/nginx/conf/nginx.conf /home/5s/nginx/conf/nginx.conf.bak
-    source ./src/template/nginx_config_template.sh > /home/5s/nginx/conf/nginx.conf
+    cp ${nginxInstallPath}conf/nginx.conf ${nginxInstallPath}conf/nginx.conf.bak
+    source ./src/template/nginx_config_template.sh > ${nginxInstallPath}conf/nginx.conf
     echo "> Create nginx.service" >> ./logs/log
     source ./src/template/nginx_service_template.sh > /etc/systemd/system/nginx.service
     echo "> Start nginx.service" >> ./logs/log
